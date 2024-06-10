@@ -1,5 +1,5 @@
 require 'faker'
-require 'open-uri'
+require 'uri'
 require 'json'
 
 puts "Cleaning database"
@@ -17,12 +17,15 @@ film_list.each do |element|
   title = element['original_title']
   overview = element['overview']
   poster_url = base_url_film_path + element['poster_path']
-  Movie.create(
+  movie = Movie.new(
     title: title,
     overview: overview,
     poster_url: poster_url,
     rating: rand(1.0..10.00).truncate(1)
   )
+  file = URI.open("https://res.cloudinary.com/dteopaixi/image/upload/v1677432296/development/3jif61tdx4qtl694audyh3v6lytf.jpg")
+  movie.photo.attach(io: file, filename: "name", content_type: "image/jpg")
+  movie.save
 end
 
 puts "Done"

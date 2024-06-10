@@ -7,6 +7,7 @@
 <ul>
   <% @list.movies.each do |movie| %>
     <li>
+      <%= cl_image_tag movie.photo.key, height: 300, width: 400, crop: :fill %>
       <h3><%= movie.title %></h3>
       <p>Notes to the film: <%= movie.bookmarks[0].comment %></p>
       <p><%= link_to '🗑️',
